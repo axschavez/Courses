@@ -1,2 +1,3 @@
 php artisan make:migration create_courses_table
 php artisan make:factory CourseFactory --model=Course
+php artisan make:seeder CourseSeeder
