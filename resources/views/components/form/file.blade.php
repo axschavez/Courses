@@ -17,16 +17,15 @@
         <div class="group">
             <label for="{{ $name }}"
                    class="font-medium text-sky-700 group-focus-within:underline dark:text-sky-600">
-                <input
-                    id="{{ $name }}"
-                    wire:model="{{ $name }}"
-                    type="file"
-                    {{ $attributes }}
-                    class="sr-only"
-                    aria-describedby="{{ $name }}-formats"
-                />
-                Explorador de archivos
             </label>
+            <input
+                id="{{ $name }}"
+                type="file"
+                {{ $attributes }}
+                class="sr-only"
+                aria-describedby="{{ $name }}-formats"
+            />
+            Explorador de archivos
             O arrastra archivos aquí
         </div>
         <small id="{{ $name }}-formats">{{ $formats }} - Max {{ $maxSize }}</small>

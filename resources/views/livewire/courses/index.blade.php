@@ -1,4 +1,7 @@
 <div>
+    @if (session('success'))
+        <x-form.alert label="{{ session('success') }}" />
+    @endif
     <div class="flex justify-end mb-4">
         <a href="{{ route('courses.create') }}" wire:navigate
            class="whitespace-nowrap rounded-sm bg-sky-700 border border-sky-700 px-4 py-2 text-center text-sm font-medium tracking-wide text-white transition hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-700 active:opacity-100 active:outline-offset-0 disabled:cursor-not-allowed disabled:opacity-75 dark:border-sky-600 dark:bg-sky-600 dark:text-white dark:focus-visible:outline-sky-600"

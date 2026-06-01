@@ -12,6 +12,6 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.courses.index', ['courses' => Course::paginate(10)]);
+        return view('livewire.courses.index', ['courses' => Course::latest()->paginate(10)]);
     }
 }
