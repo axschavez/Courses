@@ -3,31 +3,31 @@
 namespace App\Livewire\Courses;
 
 use App\Models\Course;
+use Illuminate\Support\Str;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Str;
 
 class Create extends Component
 {
     use WithFileUploads;
 
-    public string $title = '';
-    public string $description = '';
-    public float $price = 0;
-    public string $level = 'beginner';
+    #[Validate('required', 'string', 'max:255')]
+    public $title;
+    #[Validate('required', 'string')]
+    public $description;
+    #[Validate('required', 'numeric', 'min:0')]
+    public $price;
+    #[Validate('required', 'in:beginner,intermediate,advanced')]
+    public $level;
+    #[Validate('nullable', 'image', 'max:5120')]
     public $thumbnail;
 
-    protected array $rules = [
-        'title'       => ['required', 'string', 'max:255'],
-        'description' => ['required'],
-        'price'       => ['required', 'numeric', 'min:0'],
-        'level'       => ['required', 'in:beginner,intermediate,advanced'],
-        'thumbnail'   => ['nullable', 'image', 'max:5120'], // 5MB
-    ];
     public function updatedThumbnail()
     {
         $this->validateOnly('thumbnail');
     }
+
     public function store(): void
     {
         $this->validate();
@@ -36,7 +36,7 @@ class Create extends Component
             'thumbnail_name' => $this->thumbnail?->getClientOriginalName(),
             'thumbnail_size' => $this->thumbnail?->getSize(),
         ]);*/
-        //tenemos que ver como solucionar el problema que no guarda imagenes
+        // tenemos que ver como solucionar el problema que no guarda imagenes
         $thumbnailPath = null;
 
         if ($this->thumbnail) {
@@ -44,14 +44,14 @@ class Create extends Component
         }
 
         Course::create([
-            'title'       => $this->title,
-            'slug'        => Str::slug($this->title) . '-' . time(),
+            'title' => $this->title,
+            'slug' => Str::slug($this->title).'-'.time(),
             'description' => $this->description,
-            'price'       => $this->price,
-            'level'       => $this->level,
-            'status'      => 'draft',
-            'user_id'     => auth()->id(),
-            'thumbnail'   => $thumbnailPath,
+            'price' => $this->price,
+            'level' => $this->level,
+            'status' => 'draft',
+            'user_id' => auth()->id(),
+            'thumbnail' => $thumbnailPath,
         ]);
 
         session()->flash('success', 'Curso creado exitosamente.');

@@ -11,4 +11,7 @@
             <option value="{{ $option }}">{{ $text }}</option>
         @endforeach
     </select>
+    @error($name)
+    <small class="pl-0.5 text-danger">{{ $message }}</small>
+    @enderror
 </div>

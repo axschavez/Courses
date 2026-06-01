@@ -30,4 +30,7 @@
         </div>
         <small id="{{ $name }}-formats">{{ $formats }} - Max {{ $maxSize }}</small>
     </div>
+    @error($name)
+    <small class="pl-0.5 text-danger">{{ $message }}</small>
+    @enderror
 </div>
