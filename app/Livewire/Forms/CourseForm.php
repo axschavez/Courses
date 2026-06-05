@@ -9,6 +9,8 @@ use Livewire\Form;
 
 class CourseForm extends Form
 {
+    public ?Course $course;
+
     #[Validate(['required', 'string', 'max:255'])]
     public $title;
 
@@ -23,6 +25,15 @@ class CourseForm extends Form
 
     #[Validate(['nullable', 'image', 'max:5120'])]
     public $thumbnail;
+
+    public function setCourse(Course $course)
+    {
+        $this->course = $course;
+        $this->title = $course->title;
+        $this->description = $course->description;
+        $this->price = $course->price;
+        $this->level = $course->level;
+    }
 
     public function store()
     {
@@ -43,6 +54,12 @@ class CourseForm extends Form
             'user_id' => auth()->id(),
             'thumbnail' => $thumbnailPath,
         ]);
+    }
+
+    public function update()
+    {
+        $this->validate();
+        $this->course->update($this->all());
     }
 
     public function updatedThumbnail()
